@@ -71,7 +71,7 @@ button.boto:active{
 }
 
 button.boto:hover:not(:active){
-	font-size: 1.375rem;
+	font-size: 1.175rem;
 	width: 25.313rem;
 	height: 5.313rem;
 	margin:auto;
