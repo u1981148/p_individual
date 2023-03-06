@@ -12,6 +12,42 @@
 	grid-auto-rows: minmax(7rem, auto);
 }
 
+.carta-display{
+	display: grid;
+	grid-template-columns: 1fr repeat(4 , 10rem) 1fr;
+	grid-gap: 0.625rem;
+	grid-auto-rows: minmax(7rem, auto);
+}
+
+.carta1{
+	grid-column: 2;
+	grid-row: 2 ;
+	margin: auto;
+}
+
+.carta2{
+	grid-column: 3;
+	grid-row: 2 ;
+	margin: auto;
+}
+
+.carta3{
+	grid-column: 4;
+	grid-row: 2 ;
+	margin: auto;
+}
+
+.carta4{
+	grid-column: 5;
+	grid-row: 2 ;
+	margin: auto;
+}
+
+.titolM{
+	grid-column: 3/5;
+	grid-row: 1;
+}
+
 .boto{
 	grid-column: 2;
 	grid-row: auto ;
@@ -39,4 +75,8 @@ button.boto:hover:not(:active){
 	width: 25.313rem;
 	height: 5.313rem;
 	margin:auto;
+}
+
+.goMenu{
+	
 }
