@@ -1,110 +1,39 @@
-#title {
-	font-size: 1.625rem;
-	line-height: 4.688rem;
-	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-	font-weight: bolder;
+input[type=number]{
+	height: 3rem;
+    font-size: 1.3rem;
+    font-weight: bold;
+    width: 3rem;
+    text-align: center;
+}
+
+#title{
+	font-size: 26px;
+	line-height: 75px;
 }
 
 .menu-object{
-	display: grid;
-	grid-template-columns: 1fr 30rem 1fr;
-	grid-gap: 0.625rem;
-	grid-auto-rows: minmax(7rem, auto);
-}
-
-.carta-display{
-	display: grid;
-	grid-template-columns: 1fr repeat(4 , 10rem) 1fr;
-	grid-gap: 0.625rem;
-	grid-auto-rows: minmax(7rem, auto);
-}
-
-.carta1{
-	grid-column: 2;
-	grid-row: 2 ;
-	margin: auto;
-}
-
-.carta2{
-	grid-column: 3;
-	grid-row: 2 ;
-	margin: auto;
-}
-
-.carta3{
-	grid-column: 4;
-	grid-row: 2 ;
-	margin: auto;
-}
-
-.carta4{
-	grid-column: 5;
-	grid-row: 2 ;
-	margin: auto;
-}
-
-.titolM{
-	grid-column: 3/5;
-	grid-row: 1;
-}
-.goMenu {
-	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-	grid-column: 3/5;
-	grid-row: 3;
-	margin: auto;
-	font-size: 0.775rem;
-	border: none;
-	outline: none;
-	cursor: pointer;
-	border-radius: 1.5rem;
-	width: 10rem;
-	height: 4rem;
-}
-
-.boto {
-	font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-	grid-column: 2;
-	grid-row: auto;
-	font-size: 1.275rem;
-	border: none;
-	outline: none;
-	cursor: pointer;
-	border-radius: 2.5rem;
-}
-
-.titol{
-	grid-column: 2;
-	grid-row: auto;
+	display:block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 300px;
+	height: 75px;
+	font-size: 16px;
+	margin-top: 10px;
 }
 
 p{
 	text-align: center;
 }
 
-button.boto:active{
-	font-size: 1.275rem;
-	width: 17.188rem;
-	height: 4.375rem;
-	margin: auto;
+button.menu-object:active{
+	font-size: 18px;
+	width: 275px;
+	height: 70px;
 }
 
-button.boto:hover:not(:active){
-	font-size: 1.175rem;
-	width: 25.313rem;
-	height: 5.313rem;
-	margin:auto;
+button.menu-object:hover:not(:active){
+	font-size: 22px;
+	width: 325px;
+	height: 85px;
 }
 
-button.goMenu:active {
-	font-size: 0.775rem;
-	width: 10rem;
-	height: 4rem;
-	margin: auto;
-}
-
-button.goMenu:hover:not(:active) {
-	font-size: 0.675rem;
-	width: 9rem;
-	height: 3.5rem;
-	margin: auto;
-}
