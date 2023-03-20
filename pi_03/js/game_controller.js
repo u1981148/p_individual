@@ -22,11 +22,15 @@ var game = new Vue({
 		this.items = this.items.concat(this.items); // Dupliquem els elements
 		this.items.sort(function(){return Math.random() - 0.5}); // Array aleatòria
 		for (var i = 0; i < this.items.length; i++){
-			this.current_card.push({ done: false, texture: this.items[i]});
+			this.current_card.push({ done: false, texture: back });
 		}
+		console.log(this.current_card.length);
+		console.log(this.num_cards);
 		setTimeout(() => {
 			for (var i = 0; i < this.current_card.length; i++) {
-				Vue.set(this.current_card, i, { done: false, texture: back });
+				console.log(i);
+				console.log(this.items[i]);
+				Vue.set(this.current_card, i, { done: false, texture: this.items[i] });
 			}
 		}, 2000);
 	},
