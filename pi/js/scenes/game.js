@@ -30,7 +30,7 @@ class GameScene extends Phaser.Scene {
 		var h = 250;
 		for (let i = 0; i < 4; i++) {
 			this.cards.create(h, 300, 'back');
-			h += 50;
+			h+100
 		}
 		
 		let i = 0;
