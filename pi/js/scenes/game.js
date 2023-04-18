@@ -27,11 +27,11 @@ class GameScene extends Phaser.Scene {
 		this.add.image(550, 300, arraycards[3]);
 		
 		this.cards = this.physics.add.staticGroup();
-		
-		this.cards.create(250, 300, 'back');
-		this.cards.create(350, 300, 'back');
-		this.cards.create(450, 300, 'back');
-		this.cards.create(550, 300, 'back');
+		var h = 250;
+		for (let i = 0; i < 4; i++) {
+			this.cards.create(h, 300, 'back');
+			h += 50;
+		}
 		
 		let i = 0;
 		this.cards.children.iterate((card)=>{
