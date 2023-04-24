@@ -29,6 +29,10 @@ p{
 	float: left;
 	margin-bottom: 1rem;
 }
+#PhFons{
+	background-color: red !important;
+  	color: blue !important;
+}
 button.menu-object:active{
 	font-size: 18px;
 	width: 275px;

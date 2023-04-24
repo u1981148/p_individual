@@ -71,10 +71,11 @@ class GameScene extends Phaser.Scene {
 							if (this.firstClick.card_id !== card.card_id){
 								this.score -= restaPunts;
 								this.mostrantError=true;
-								this.firstClick.enableBody(false, 0, 0, true, true);
 								setTimeout(()=> {
+									this.firstClick.enableBody(false, 0, 0, true, true);
 									card.enableBody(false, 0, 0, true, true);
 									this.mostrantError=false;
+									this.firstClick = null;
 								},temps)
 								if (this.score <= 0){
 									alert("Game Over");
@@ -87,8 +88,8 @@ class GameScene extends Phaser.Scene {
 									alert("You Win with " + this.score + " points.");
 									loadpage("../");
 								}
+								this.firstClick = null;
 							}
-							this.firstClick = null;
 						}
 						else{
 							this.firstClick = card;

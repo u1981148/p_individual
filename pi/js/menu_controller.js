@@ -28,11 +28,16 @@ var menu = new Vue({
 			loadpage("../index.html");
 		},
 		mode1() {
-		  // Lógica para la opción normal
-		  loadpage("./html/phasergame.html");
+		// Lógica para la opción normal
+		  	loadpage("./html/phasergame.html");
+		  	name = prompt("User name");
+		  	sessionStorage.setItem("username", name);
 		},
 		mode2() {
-		  // Lógica para la opción 2
+		 	 // Lógica para la opción 2
+			loadpage("./html/phasergame.html");
+		  	name = prompt("User name");
+		  	sessionStorage.setItem("username", name);
 		}
 	  }
 });
