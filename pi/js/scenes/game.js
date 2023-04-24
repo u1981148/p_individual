@@ -5,6 +5,7 @@ class GameScene extends Phaser.Scene {
 		this.firstClick = null;
 		this.score = 100;
 		this.correct = 0;
+		this.mostrantError=false;
     }
 
     preload (){	
@@ -59,36 +60,43 @@ class GameScene extends Phaser.Scene {
 				}
 			}
 			let i = 0;
-		this.cards.children.iterate((card)=>{
-			card.card_id = arraycards[i];
-			i++;
-			card.setInteractive();
-			card.on('pointerup', () => {
-				card.disableBody(true,true);
-				if (this.firstClick){
-					if (this.firstClick.card_id !== card.card_id){
-						this.score -= restaPunts;
-						this.firstClick.enableBody(false, 0, 0, true, true);
-						card.enableBody(false, 0, 0, true, true);
-						if (this.score <= 0){
-							alert("Game Over");
-							loadpage("../");
+			this.cards.children.iterate((card)=>{
+				card.card_id = arraycards[i];
+				i++;
+				card.setInteractive();
+				card.on('pointerup', () => {
+					if(!this.mostrantError){
+						card.disableBody(true,true);
+						if (this.firstClick){
+							if (this.firstClick.card_id !== card.card_id){
+								this.score -= restaPunts;
+								this.mostrantError=true;
+								this.firstClick.enableBody(false, 0, 0, true, true);
+								setTimeout(()=> {
+									card.enableBody(false, 0, 0, true, true);
+									this.mostrantError=false;
+								},temps)
+								if (this.score <= 0){
+									alert("Game Over");
+									loadpage("../");
+								}
+							}
+							else{
+								this.correct++;
+								if (this.correct >= cartes_d){
+									alert("You Win with " + this.score + " points.");
+									loadpage("../");
+								}
+							}
+							this.firstClick = null;
+						}
+						else{
+							this.firstClick = card;
 						}
 					}
-					else{
-						this.correct++;
-						if (this.correct >= cartes_d){
-							alert("You Win with " + this.score + " points.");
-							loadpage("../");
-						}
-					}
-					this.firstClick = null;
-				}
-				else{
-					this.firstClick = card;
-				}
-			}, card);
-		});
+				}, card);
+			});
+			
 		}, temps)
 	}
 	
