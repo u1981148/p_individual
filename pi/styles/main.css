@@ -24,7 +24,11 @@ input[type=number]{
 p{
 	text-align: center;
 }
-
+#mig_boto{
+	width: 50%; 
+	float: left;
+	margin-bottom: 1rem;
+}
 button.menu-object:active{
 	font-size: 18px;
 	width: 275px;

@@ -10,7 +10,6 @@ var menu = new Vue({
 		divideGame() {
 		  // Obtiene el elemento del botón del juego Phaser
 		  this.divided = !this.divided
-		  console.log(this.divided)
 		},
 		load() {
 		  // Lógica para el botón Load Game
@@ -28,11 +27,11 @@ var menu = new Vue({
 			name = "";
 			loadpage("../index.html");
 		},
-		option1() {
+		mode1() {
 		  // Lógica para la opción normal
 		  loadpage("./html/phasergame.html");
 		},
-		option2() {
+		mode2() {
 		  // Lógica para la opción 2
 		}
 	  }

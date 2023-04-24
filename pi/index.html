@@ -10,13 +10,11 @@
 	<body>
 		<div class="menu-object" id="menu_id">
 			<p class="menu-object" id="title">Memory menu</p>
-		  <button class="menu-object" v-on:click="divideGame()">Phaser Game</button>
-		  <div v-if="!divided">
-			<div class="menu-object">
-			  <button class="menu-object" style="width: 50%; float: left;" v-on:click="option1()">Mode únic</button>
-			  <button class="menu-object"style="width: 50%; float: left" v-on:click="option2()">Mode infinit</button>
+		  	<button class="menu-object" v-on:click="divideGame()">Phaser Game</button>
+			<div  v-if="divided" class="menu-object">
+				<button class="menu-object" id="mig_boto" v-on:click="mode1()">Mode únic</button>
+				<button class="menu-object" id="mig_boto" v-on:click="mode2()">Mode infinit</button>
 			</div>
-		  </div>
 		  <button class="menu-object" v-on:click="load()">Load Game</button>
 		  <button class="menu-object" v-on:click="options()">Options</button>
 		  <button class="menu-object" v-on:click="exit()">Exit</button>

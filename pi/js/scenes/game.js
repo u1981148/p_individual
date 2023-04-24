@@ -26,16 +26,8 @@ class GameScene extends Phaser.Scene {
 		var dificultat = options_data.dificulty;
 		var espaiX = cartes_d/2 * 96;
 		var espaiY = cartes_d/2 * 128;
-		if (cartes_d > 5)
-		{
-			var f = 3
-			var c = 4
-		}
-		else
-		{ 
-			var f = 2
-		  	var c = cartes_d
-		}
+		if (cartes_d > 5){ var f = 3; var c = 4;}
+		else{var f = 2; var c = cartes_d;}
 		var restaPunts = null;
 		var temps = null;
 		if (dificultat == "easy"){
@@ -59,16 +51,14 @@ class GameScene extends Phaser.Scene {
 				cart += 1;	
 			}
 		}
-
 		this.cards = this.physics.add.staticGroup();
-
-		for (let i = 0; i < c; i++){
-			for (let j = 0; j < f; j++){
-				this.cards.create(i*125 + this.cameras.main.centerX - espaiX, j*150 + this.cameras.main.centerY - espaiY/2, 'back');
+		setTimeout(() => {
+			for (let i = 0; i < c; i++){
+				for (let j = 0; j < f; j++){
+					this.cards.create(i*125 + this.cameras.main.centerX - espaiX, j*150 + this.cameras.main.centerY - espaiY/2, 'back');
+				}
 			}
-		}
-
-		let i = 0;
+			let i = 0;
 		this.cards.children.iterate((card)=>{
 			card.card_id = arraycards[i];
 			i++;
@@ -77,7 +67,7 @@ class GameScene extends Phaser.Scene {
 				card.disableBody(true,true);
 				if (this.firstClick){
 					if (this.firstClick.card_id !== card.card_id){
-						this.score -= 20;
+						this.score -= restaPunts;
 						this.firstClick.enableBody(false, 0, 0, true, true);
 						card.enableBody(false, 0, 0, true, true);
 						if (this.score <= 0){
@@ -87,7 +77,7 @@ class GameScene extends Phaser.Scene {
 					}
 					else{
 						this.correct++;
-						if (this.correct >= 2){
+						if (this.correct >= cartes_d){
 							alert("You Win with " + this.score + " points.");
 							loadpage("../");
 						}
@@ -99,6 +89,7 @@ class GameScene extends Phaser.Scene {
 				}
 			}, card);
 		});
+		}, temps)
 	}
 	
 	update (){	}
