@@ -25,7 +25,7 @@ class GameScene extends Phaser.Scene {
 		console.log(h);
 		console.log(window.innerHeight);
 		for (let i = 0; i < 4; i++) {
-			this.add.image(h, 300, arraycards[0]);
+			this.add.image(h, 300, arraycards[i]);
 			h+=100;
 		}
 		
