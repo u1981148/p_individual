@@ -18,28 +18,56 @@ class GameScene extends Phaser.Scene {
 	}
 	
     create (){	
-		let arraycards = ['co', 'sb', 'co', 'sb'];
+		let cartes = ['co', 'co', 'cb', 'cb', 'sb', 'sb', 'so', 'so', 'tb', 'tb', 'to', 'to'];
 		this.cameras.main.setBackgroundColor(0xBFFCFF);
 		var json = localStorage.getItem("config") || '{"cards":2,"dificulty":"hard"}';
 		var options_data = JSON.parse(json);
 		var cartes_d = options_data.cards;
-		var dificulat = options_data.dificulty;
-		var h = (window.innerHeight)-(4/2*100);
-		console.log(h);
-		console.log(window.innerHeight);
-		for (let i = 0; i < cartes_d*2; i++) {
-			this.add.image(h, 300, arraycards[i]);
-			h+=100;
+		var dificultat = options_data.dificulty;
+		var espaiX = cartes_d/2 * 96;
+		var espaiY = cartes_d/2 * 128;
+		if (cartes_d > 5)
+		{
+			var f = 3
+			var c = 4
 		}
-		
+		else
+		{ 
+			var f = 2
+		  	var c = cartes_d
+		}
+		var restaPunts = null;
+		var temps = null;
+		if (dificultat == "easy"){
+			restaPunts = 5;
+			temps = 2000;
+		}
+		else if (dificultat == "normal"){
+			restaPunts = 10;
+			temps = 1000;
+		}
+		else {
+			restaPunts = 20;
+			temps = 500;
+		}
+		var arraycards = cartes.slice(0, cartes_d * 2)
+		arraycards.sort((a, b) => 0.5 - Math.random());
+		var cart=0;
+		for (let i = 0; i < c; i++){
+			for (let j = 0; j < f; j++){
+				this.add.image(i*125 + this.cameras.main.centerX - espaiX, j*150 + this.cameras.main.centerY - espaiY/2, arraycards[cart]);
+				cart += 1;	
+			}
+		}
+
 		this.cards = this.physics.add.staticGroup();
-		
-		var h = (window.innerHeight)-(4/2*100);
-		for (let i = 0; i < cartes_d*2; i++) {
-			this.cards.create(h, 300, 'back');
-			h+=100;
+
+		for (let i = 0; i < c; i++){
+			for (let j = 0; j < f; j++){
+				this.cards.create(i*125 + this.cameras.main.centerX - espaiX, j*150 + this.cameras.main.centerY - espaiY/2, 'back');
+			}
 		}
-		
+
 		let i = 0;
 		this.cards.children.iterate((card)=>{
 			card.card_id = arraycards[i];
