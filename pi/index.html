@@ -4,24 +4,26 @@
 		<link rel="stylesheet" href="./styles/main.css">
 		<script src="./js/loader.js"></script>
 		<script src="./js/game_info.js"></script>
-		<script src="./js/menu_controller.js"></script>
+
 		<title> My first game - Menu </title>
 	</head>
 	<body>
-		<p class="menu-object" id="title">Memory menu</p>
-		<button class="menu-object" onclick="phaser_game()"> 
-			Phaser Game 
-		</button>
-		<button class="menu-object" onclick="load()"> 
-			Load Game 
-		</button>
-		<button class="menu-object" onclick="options()"> 
-			Options 
-		</button>
-		<button class="menu-object" onclick="exit()"> 
-			Exit 
-		</button>
-	</body>
+		<div class="menu-object" id="menu_id">
+			<p class="menu-object" id="title">Memory menu</p>
+		  <button class="menu-object" v-on:click="divideGame()">Phaser Game</button>
+		  <div v-if="!divided">
+			<div class="menu-object">
+			  <button class="menu-object" style="width: 50%; float: left;" v-on:click="option1()">Mode únic</button>
+			  <button class="menu-object"style="width: 50%; float: left" v-on:click="option2()">Mode infinit</button>
+			</div>
+		  </div>
+		  <button class="menu-object" v-on:click="load()">Load Game</button>
+		  <button class="menu-object" v-on:click="options()">Options</button>
+		  <button class="menu-object" v-on:click="exit()">Exit</button>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+		<script src="./js/menu_controller.js"></script>
+	  </body>
 </html>
 
 
