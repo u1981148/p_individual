@@ -46,8 +46,7 @@ class GameScene extends Phaser.Scene {
 		}
 		var json_c = sessionStorage.getItem("cartes");
 		var cartes_g = JSON.parse(json_c);
-		console.log(cartes_g);
-		if(cartes_g==null){
+		if(cartes_g==null || cartes_g.arraycards_s==null || cartes_g.nCartes!=cartes_d){
 			var arraycards = cartes.slice(0, cartes_d * 2)
 			arraycards.sort((a, b) => 0.5 - Math.random());
 			let cart=0;
@@ -60,7 +59,7 @@ class GameScene extends Phaser.Scene {
 		}
 		else{
 			var arraycards = cartes.slice(0, cartes_d * 2)
-			arraycards = cartes_g;
+			arraycards = cartes_g.arraycards_s;
 			let cart=0;
 			console.log(arraycards);
 			for (let i = 0; i < c; i++){
@@ -125,8 +124,27 @@ class GameScene extends Phaser.Scene {
         const buttonText = this.add.text(0, 0, 'SAVE', { fontSize: '64px', fill: '#000', fontWeight: 'bold'});
         Phaser.Display.Align.In.Center(buttonText, button);
         button.on('pointerdown', () => {
-            sessionStorage.setItem("cartes", JSON.stringify(arraycards));
-			loadpage("../");
+			var guardar_part = {
+				arraycards_s:arraycards,
+				nCartes:cartes_d,
+			}
+			var user = sessionStorage.getItem("username","unknown");
+			console.log(user);
+            //sessionStorage.setItem("cartes", JSON.stringify(guardar_part));
+			let partida = {
+				username: this.user,
+				arraycards_s:arraycards,
+				nCartes:cartes_d,
+				score: this.score
+			}
+			let arrayPartides = [];
+			if(localStorage.partides){
+				arrayPartides = JSON.parse(localStorage.partides);
+				if(!Array.isArray(arrayPartides)) arrayPartides = [];
+			}
+			arrayPartides.push(partida);
+			localStorage.partides = JSON.stringify(arrayPartides);
+			//loadpage("../");
         });
 	}
 	
