@@ -139,33 +139,27 @@ class GameScene extends Phaser.Scene {
         const buttonText = this.add.text(0, 0, 'SAVE', { fontSize: '64px', fill: '#000', fontWeight: 'bold'});
         Phaser.Display.Align.In.Center(buttonText, button);
         button.on('pointerdown', () => {
+			let cards_p = {};
+			this.cards.children.iterate((card) => {
+				cards_p[card.card_id] = card.active;
+			});
 			let partida = {
 				username: user,
 				arraycards_s:arraycards,
 				nCartes:cartes_d,
 				restaPunts_s:restaPunts,
 				temps_s:temps,
-				cards_s: [],
+				cards_s: cards_p,
 				score: this.score
 			 };
-			console.log(this.cards.children);
-			for (let i = 0; i < this.cards.children.size; i++) {
-				partida.cards_s.push(this.cards.children.entries[i]);
-				console.log(partida.cards_s);
-				console.log(this.cards.children);
-			}
-			console.log(this.cards.children);
-			console.log(partida);
 			let arrayPartides = [];
 			if(localStorage.partides){
 				arrayPartides = JSON.parse(localStorage.partides);
 				if(!Array.isArray(arrayPartides)) arrayPartides = [];
 			}
 			arrayPartides.push(partida);
-			console.log(partida);
 			localStorage.partides = JSON.stringify(arrayPartides);
-			console.log(localStorage.partides);
-			//loadpage("../");
+			loadpage("../");
         });
 	}
 	
