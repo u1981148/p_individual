@@ -34,6 +34,7 @@ class GameScene extends Phaser.Scene {
 			var espaiY = l_partida.nCartes/2 * 128;
 			if (l_partida.nCartes > 5){ var f = 3; var c = 4;}
 			else{var f = 2; var c = l_partida.nCartes;}
+			this.correct=l_partida.correct;
 			var restaPunts = l_partida.restaPunts_s;
 			var temps = l_partida.temps_s;
 			var arraycards = cartes.slice(0, l_partida.nCartes * 2)
@@ -82,20 +83,35 @@ class GameScene extends Phaser.Scene {
 		}
 		setTimeout(() => {
 			this.cards = this.physics.add.staticGroup();
+			console.log(l_partida);
+			let car=0;
 			for (let i = 0; i < c; i++){
 				for (let j = 0; j < f; j++){
-					this.cards.create(i*125 + this.cameras.main.centerX - espaiX, j*150 + this.cameras.main.centerY - espaiY/2, 'back');
+					if(l_partida){
+						if(l_partida.cards_s[car]==true){
+							this.cards.create(i*125 + this.cameras.main.centerX - espaiX, j*150 + this.cameras.main.centerY - espaiY/2, 'back');
+						}
+					}else{
+						this.cards.create(i*125 + this.cameras.main.centerX - espaiX, j*150 + this.cameras.main.centerY - espaiY/2, 'back');
+					}
+					car++;
 				}
 			}
 			let i = 0;
 			this.cards.children.iterate((card)=>{
-				card.card_id = arraycards[i];
-				i++;
-				card.setInteractive();
 				if(l_partida){
-					this.cards.children=l_partida.cards;
-					console.log(l_partida.cards)
+					if(l_partida.cards_s[i]==false){i++}
+					else{
+						card.card_id = arraycards[i];	
+						i++;
+					}
 				}
+				else{
+					card.card_id = arraycards[i];	
+					i++;
+				}
+				console.log(card.card_id + " " + i);				
+				card.setInteractive();
 				card.on('pointerup', () => {
 					if(!this.mostrantError){
 						card.disableBody(true,true);
@@ -129,7 +145,6 @@ class GameScene extends Phaser.Scene {
 					}
 				}, card);
 			});
-			console.log(this.cards.children);
 		}, temps)
 		console.log(this.cards);
         const button = this.add.sprite((f*125)-63 + this.cameras.main.centerX - espaiX, c*125 + this.cameras.main.centerY - espaiY, 'boton');
@@ -140,8 +155,10 @@ class GameScene extends Phaser.Scene {
         Phaser.Display.Align.In.Center(buttonText, button);
         button.on('pointerdown', () => {
 			let cards_p = {};
+			let i=0;
 			this.cards.children.iterate((card) => {
-				cards_p[card.card_id] = card.active;
+				cards_p[i] = card.active;
+				i++;
 			});
 			let partida = {
 				username: user,
@@ -150,6 +167,7 @@ class GameScene extends Phaser.Scene {
 				restaPunts_s:restaPunts,
 				temps_s:temps,
 				cards_s: cards_p,
+				correct:this.correct,
 				score: this.score
 			 };
 			let arrayPartides = [];
