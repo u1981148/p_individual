@@ -25,10 +25,12 @@ var menu = new Vue({
 				alert("Leaving " + name + "'s game");
 			}
 			name = "";
+			localStorage.clear();
 			loadpage("../index.html");
 		},
 		mode1() {
 		// Lógica para la opción normal
+			sessionStorage.clear();
 		  	name = prompt("User name");
 		  	sessionStorage.setItem("playerName", name);
 			loadpage("./html/phasergame.html");

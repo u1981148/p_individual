@@ -28,16 +28,16 @@ class GameScene extends Phaser.Scene {
 			if (sessionStorage.idPartida < arrayPartides.length)
 				l_partida = arrayPartides[sessionStorage.idPartida];
 		}
+		console.log(l_partida);
 		if (l_partida){
 			var espaiX = l_partida.nCartes/2 * 96;
 			var espaiY = l_partida.nCartes/2 * 128;
 			if (l_partida.nCartes > 5){ var f = 3; var c = 4;}
 			else{var f = 2; var c = l_partida.nCartes;}
-			var restaPunts = l_partida.restaPunts;
-			var temps = l_partida.temps;
+			var restaPunts = l_partida.restaPunts_s;
+			var temps = l_partida.temps_s;
 			var arraycards = cartes.slice(0, l_partida.nCartes * 2)
 			arraycards = l_partida.arraycards_s;
-			console.log(arraycards)
 			let cart=0;
 			for (let i = 0; i < c; i++){
 				for (let j = 0; j < f; j++){
@@ -82,24 +82,20 @@ class GameScene extends Phaser.Scene {
 		}
 		setTimeout(() => {
 			this.cards = this.physics.add.staticGroup();
-			console.log(l_partida);
-			if(l_partida){
-				console.log(l_partida.cards);
-				this.cards=l_partida.cards;
-				console.log(this.cards)
-			}else{
-				for (let i = 0; i < c; i++){
-					for (let j = 0; j < f; j++){
-						this.cards.create(i*125 + this.cameras.main.centerX - espaiX, j*150 + this.cameras.main.centerY - espaiY/2, 'back');
-					}
+			for (let i = 0; i < c; i++){
+				for (let j = 0; j < f; j++){
+					this.cards.create(i*125 + this.cameras.main.centerX - espaiX, j*150 + this.cameras.main.centerY - espaiY/2, 'back');
 				}
-				console.log(this.cards)
 			}
 			let i = 0;
 			this.cards.children.iterate((card)=>{
 				card.card_id = arraycards[i];
 				i++;
 				card.setInteractive();
+				if(l_partida){
+					this.cards.children=l_partida.cards;
+					console.log(l_partida.cards)
+				}
 				card.on('pointerup', () => {
 					if(!this.mostrantError){
 						card.disableBody(true,true);
@@ -133,7 +129,9 @@ class GameScene extends Phaser.Scene {
 					}
 				}, card);
 			});
+			console.log(this.cards.children);
 		}, temps)
+		console.log(this.cards);
         const button = this.add.sprite((f*125)-63 + this.cameras.main.centerX - espaiX, c*125 + this.cameras.main.centerY - espaiY, 'boton');
 		button.scaleX = .2;
 		button.scaleY = .2;
@@ -145,19 +143,29 @@ class GameScene extends Phaser.Scene {
 				username: user,
 				arraycards_s:arraycards,
 				nCartes:cartes_d,
-				restaPunts:this.restaPunts,
-				temps:this.temps,
-				cards:this.cards.children,
+				restaPunts_s:restaPunts,
+				temps_s:temps,
+				cards_s: [],
 				score: this.score
+			 };
+			console.log(this.cards.children);
+			for (let i = 0; i < this.cards.children.size; i++) {
+				partida.cards_s.push(this.cards.children.entries[i]);
+				console.log(partida.cards_s);
+				console.log(this.cards.children);
 			}
+			console.log(this.cards.children);
+			console.log(partida);
 			let arrayPartides = [];
 			if(localStorage.partides){
 				arrayPartides = JSON.parse(localStorage.partides);
 				if(!Array.isArray(arrayPartides)) arrayPartides = [];
 			}
 			arrayPartides.push(partida);
+			console.log(partida);
 			localStorage.partides = JSON.stringify(arrayPartides);
-			loadpage("../");
+			console.log(localStorage.partides);
+			//loadpage("../");
         });
 	}
 	
