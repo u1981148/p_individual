@@ -16,6 +16,7 @@ class GameScene extends Phaser.Scene {
 		this.load.image('so', '../resources/so.png');
 		this.load.image('tb', '../resources/tb.png');
 		this.load.image('to', '../resources/to.png');
+		this.load.image('boton', '../resources/boton.png');
 	}
 	
     create (){	
@@ -43,13 +44,30 @@ class GameScene extends Phaser.Scene {
 			restaPunts = 20;
 			temps = 500;
 		}
-		var arraycards = cartes.slice(0, cartes_d * 2)
-		arraycards.sort((a, b) => 0.5 - Math.random());
-		var cart=0;
-		for (let i = 0; i < c; i++){
-			for (let j = 0; j < f; j++){
-				this.add.image(i*125 + this.cameras.main.centerX - espaiX, j*150 + this.cameras.main.centerY - espaiY/2, arraycards[cart]);
-				cart += 1;	
+		var json_c = sessionStorage.getItem("cartes");
+		var cartes_g = JSON.parse(json_c);
+		console.log(cartes_g);
+		if(cartes_g==null){
+			var arraycards = cartes.slice(0, cartes_d * 2)
+			arraycards.sort((a, b) => 0.5 - Math.random());
+			let cart=0;
+			for (let i = 0; i < c; i++){
+				for (let j = 0; j < f; j++){
+					this.add.image(i*125 + this.cameras.main.centerX - espaiX, j*150 + this.cameras.main.centerY - espaiY/2, arraycards[cart]);
+					cart += 1;	
+				}
+			}
+		}
+		else{
+			var arraycards = cartes.slice(0, cartes_d * 2)
+			arraycards = cartes_g;
+			let cart=0;
+			console.log(arraycards);
+			for (let i = 0; i < c; i++){
+				for (let j = 0; j < f; j++){
+					this.add.image(i*125 + this.cameras.main.centerX - espaiX, j*150 + this.cameras.main.centerY - espaiY/2, arraycards[cart]);
+					cart += 1;	
+				}
 			}
 		}
 		this.cards = this.physics.add.staticGroup();
@@ -99,6 +117,17 @@ class GameScene extends Phaser.Scene {
 			});
 			
 		}, temps)
+		sessionStorage.clear()
+        const button = this.add.sprite((f*125)-63 + this.cameras.main.centerX - espaiX, c*125 + this.cameras.main.centerY - espaiY, 'boton');
+		button.scaleX = .2;
+		button.scaleY = .2;
+        button.setInteractive();
+        const buttonText = this.add.text(0, 0, 'SAVE', { fontSize: '64px', fill: '#000', fontWeight: 'bold'});
+        Phaser.Display.Align.In.Center(buttonText, button);
+        button.on('pointerdown', () => {
+            sessionStorage.setItem("cartes", JSON.stringify(arraycards));
+			loadpage("../");
+        });
 	}
 	
 	update (){	}
