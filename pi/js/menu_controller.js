@@ -29,9 +29,9 @@ var menu = new Vue({
 		},
 		mode1() {
 		// Lógica para la opción normal
-		  	loadpage("./html/phasergame.html");
 		  	name = prompt("User name");
-		  	sessionStorage.setItem("username", name);
+		  	sessionStorage.setItem("playerName", name);
+			loadpage("./html/phasergame.html");
 		},
 		mode2() {
 		 	 // Lógica para la opción 2
