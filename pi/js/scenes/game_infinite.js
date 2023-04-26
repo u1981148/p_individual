@@ -7,6 +7,7 @@ class GameScene extends Phaser.Scene {
 		this.totalPunts=0;
 		this.correct = 0;
 		this.level=0;
+		this.user="";
 		this.mostrantError=false;
     }
 
@@ -30,9 +31,9 @@ class GameScene extends Phaser.Scene {
 			if (sessionStorage.idPartida < arrayPartides.length)
 				l_partida = arrayPartides[sessionStorage.idPartida];
 		}
-		console.log(l_partida);
 		if (l_partida){
 			this.level=l_partida.nivell;
+			this.user=l_partida.username;
 			var cartes_d = l_partida.nCartes;
 			var espaiX = cartes_d/2 * 96;
 			var espaiY = cartes_d/2 * 128;
@@ -53,7 +54,7 @@ class GameScene extends Phaser.Scene {
 		}
 		else{
 			var json = localStorage.getItem("config") || '{"cards":2,"dificulty":"hard","rPunts":10}';
-			var user = sessionStorage.getItem("playerName","unknown");
+			this.user = sessionStorage.getItem("playerName","unknown");
 			var options_data = JSON.parse(json);
 			var cartes_d = options_data.cards;
 			var dificultat = options_data.dificulty;
@@ -153,7 +154,7 @@ class GameScene extends Phaser.Scene {
 									options_data.dificulty = dificultat;
 									options_data.rPunts = restaPunts;	
 									localStorage.setItem("config", JSON.stringify(options_data));
-									console.log(this.totalPunts);
+									console.log(options_data);
 									this.scene.restart();
 								}
 								this.firstClick = null;
@@ -185,7 +186,7 @@ class GameScene extends Phaser.Scene {
 				i++;
 			});
 			let partida = {
-				username: user,
+				username: this.user,
 				arraycards_s:arraycards,
 				nCartes:cartes_d,
 				restaPunts_s:restaPunts,
@@ -196,12 +197,22 @@ class GameScene extends Phaser.Scene {
 				nivell: this.level,
 				infinite: true
 			 };
-			let arrayPartides = [];
-			if(localStorage.partides){
-				arrayPartides = JSON.parse(localStorage.partides);
-				if(!Array.isArray(arrayPartides)) arrayPartides = [];
-			}
-			arrayPartides.push(partida);
+			 let arrayPartides = [];
+			 if (localStorage.partides) {
+			   arrayPartides = JSON.parse(localStorage.partides);
+			   if (!Array.isArray(arrayPartides)) {
+				 arrayPartides = [];
+			   } else {
+				 let partidaExistente = arrayPartides.find(partida => this.user === partida.username);
+				 if (partidaExistente) {
+				   Object.assign(partidaExistente, partida);
+				 } else {
+				   arrayPartides.push(partida);
+				 }
+			   }
+			 } else {
+			   arrayPartides.push(partida);
+			 }
 			localStorage.partides = JSON.stringify(arrayPartides);
 			loadpage("../");
         });

@@ -11,6 +11,7 @@ var load_obj = function(){
 				if(!Array.isArray(arrayPartides)) arrayPartides = [];
 			}
 			this.saves = arrayPartides;
+			console.log(this.saves);
 		},
 		methods: { 
 			load: function(i){

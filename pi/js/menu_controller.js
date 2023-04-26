@@ -39,7 +39,7 @@ var menu = new Vue({
 		 	// Lógica para la opción 2
 			sessionStorage.clear();
 		  	name = prompt("User name");
-		  	sessionStorage.setItem("username", name);
+		  	sessionStorage.setItem("playerName", name);
 			loadpage("./html/phasergame_infinite.html");
 		}
 	  }
