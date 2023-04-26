@@ -30,14 +30,15 @@ class GameScene extends Phaser.Scene {
 		}
 		console.log(l_partida);
 		if (l_partida){
-			var espaiX = l_partida.nCartes/2 * 96;
-			var espaiY = l_partida.nCartes/2 * 128;
-			if (l_partida.nCartes > 5){ var f = 3; var c = 4;}
-			else{var f = 2; var c = l_partida.nCartes;}
+			var cartes_d = l_partida.nCartes;
+			var espaiX = cartes_d/2 * 96;
+			var espaiY = cartes_d/2 * 128;
+			if (cartes_d > 5){ var f = 3; var c = 4;}
+			else{var f = 2; var c = cartes_d;}
 			this.correct=l_partida.correct;
 			var restaPunts = l_partida.restaPunts_s;
 			var temps = l_partida.temps_s;
-			var arraycards = cartes.slice(0, l_partida.nCartes * 2)
+			var arraycards = cartes.slice(0, cartes_d * 2)
 			arraycards = l_partida.arraycards_s;
 			let cart=0;
 			for (let i = 0; i < c; i++){
@@ -100,17 +101,16 @@ class GameScene extends Phaser.Scene {
 			let i = 0;
 			this.cards.children.iterate((card)=>{
 				if(l_partida){
-					if(l_partida.cards_s[i]==false){i++}
-					else{
-						card.card_id = arraycards[i];	
+					while(l_partida.cards_s[i]==false){
 						i++;
 					}
+					card.card_id = arraycards[i];	
+					i++;
 				}
 				else{
 					card.card_id = arraycards[i];	
 					i++;
-				}
-				console.log(card.card_id + " " + i);				
+				}				
 				card.setInteractive();
 				card.on('pointerup', () => {
 					if(!this.mostrantError){
@@ -146,8 +146,7 @@ class GameScene extends Phaser.Scene {
 				}, card);
 			});
 		}, temps)
-		console.log(this.cards);
-        const button = this.add.sprite((f*125)-63 + this.cameras.main.centerX - espaiX, c*125 + this.cameras.main.centerY - espaiY, 'boton');
+        const button = this.add.sprite(this.cameras.main.centerX , this.cameras.main.height - 200, 'boton');
 		button.scaleX = .2;
 		button.scaleY = .2;
         button.setInteractive();
