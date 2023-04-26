@@ -36,10 +36,11 @@ var menu = new Vue({
 			loadpage("./html/phasergame.html");
 		},
 		mode2() {
-		 	 // Lógica para la opción 2
-			loadpage("./html/phasergame.html");
+		 	// Lógica para la opción 2
+			sessionStorage.clear();
 		  	name = prompt("User name");
 		  	sessionStorage.setItem("username", name);
+			loadpage("./html/phasergame_infinite.html");
 		}
 	  }
 });
