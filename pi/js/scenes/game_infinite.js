@@ -52,7 +52,7 @@ class GameScene extends Phaser.Scene {
 			}
 		}
 		else{
-			var json = localStorage.getItem("config") || '{"cards":2,"dificulty":"hard",rPunts:"10"}';
+			var json = localStorage.getItem("config") || '{"cards":2,"dificulty":"hard","rPunts":10}';
 			var user = sessionStorage.getItem("playerName","unknown");
 			var options_data = JSON.parse(json);
 			var cartes_d = options_data.cards;
@@ -193,7 +193,8 @@ class GameScene extends Phaser.Scene {
 				cards_s: cards_p,
 				correct:this.correct,
 				score: this.score,
-				nivell: this.level
+				nivell: this.level,
+				infinite: true
 			 };
 			let arrayPartides = [];
 			if(localStorage.partides){

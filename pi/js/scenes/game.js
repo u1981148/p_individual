@@ -167,7 +167,8 @@ class GameScene extends Phaser.Scene {
 				temps_s:temps,
 				cards_s: cards_p,
 				correct:this.correct,
-				score: this.score
+				score: this.score,
+				infinite: false
 			 };
 			let arrayPartides = [];
 			if(localStorage.partides){
