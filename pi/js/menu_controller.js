@@ -19,6 +19,9 @@ var menu = new Vue({
 		  // Lógica para el botón Options
 		  loadpage("./html/options.html");
 		},
+		scoreboard(){
+			loadpage("./html/scoreboard.html");
+		},
 		exit() {
 		// Lógica para el botón Exit
 		  	if (name != ""){

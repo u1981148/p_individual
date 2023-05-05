@@ -40,6 +40,7 @@ class GameScene extends Phaser.Scene {
 			if (cartes_d > 5){ var f = 3; var c = 4;}
 			else{var f = 2; var c = cartes_d;}
 			this.correct=l_partida.correct;
+			this.totalPunts=l_partida.totalP;
 			var restaPunts = l_partida.restaPunts_s;
 			var temps = l_partida.temps_s;
 			var arraycards = cartes.slice(0, cartes_d * 2)
@@ -132,10 +133,34 @@ class GameScene extends Phaser.Scene {
 								},temps)
 								if (this.score <= 0){
 									alert("Game Over");
+									var json = localStorage.getItem("config") || '{"cards":2,"dificulty":"hard","rPunts":10}';
+									var options_data = JSON.parse(json);
 									options_data.cards = 2;
 									options_data.dificulty = "easy";
 									options_data.rPunts = 10;	
 									localStorage.setItem("config", JSON.stringify(options_data));
+									let scoreF = {
+										punts: this.totalPunts,
+										username: this.user
+									 };
+									let arrayScores = [];
+									if (localStorage.scores) {
+									arrayScores = JSON.parse(localStorage.scores);
+									if (!Array.isArray(arrayScores)) {
+										arrayScores = [];
+									} else {
+										let scoreExistente = arrayScores.find(scoreF => this.user === scoreF.username && this.score > scoreF.punts);
+										if (scoreExistente) {
+										Object.assign(scoreExistente, scoreF);
+										} else {
+											arrayScores.push(scoreF);
+										}
+									}
+									} else {
+										arrayScores.push(scoreF);
+									}
+									console.log(arrayScores);
+									localStorage.scores = JSON.stringify(arrayScores);
 									loadpage("../");
 								}
 							}
@@ -150,11 +175,11 @@ class GameScene extends Phaser.Scene {
 									if (dificultat == "easy"){dificultat = "normal";}
 									else if (dificultat == "normal"){dificultat = "hard";}
 									restaPunts += 1;
-									if(l_partida){
-										sessionStorage.idPartida=null;
-										var json = localStorage.getItem("config") || '{"cards":2,"dificulty":"hard","rPunts":10}';
-										var options_data = JSON.parse(json);
-									}
+									console.log(options_data);
+									sessionStorage.idPartida=null;
+									var json = localStorage.getItem("config") || '{"cards":2,"dificulty":"hard","rPunts":10}';
+									var options_data = JSON.parse(json);
+									console.log(options_data);
 									options_data.cards = cartes_d;
 									options_data.dificulty = dificultat;
 									options_data.rPunts = restaPunts;	
@@ -199,6 +224,7 @@ class GameScene extends Phaser.Scene {
 				cards_s: cards_p,
 				correct:this.correct,
 				score: this.score,
+				totalP: this.totalPunts,
 				nivell: this.level,
 				infinite: true
 			 };
