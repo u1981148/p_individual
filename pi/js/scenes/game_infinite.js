@@ -177,16 +177,13 @@ class GameScene extends Phaser.Scene {
 									if (dificultat == "easy"){dificultat = "normal";}
 									else if (dificultat == "normal"){dificultat = "hard";}
 									restaPunts += 1;
-									console.log(options_data);
 									sessionStorage.idPartida=null;
 									var json = localStorage.getItem("config") || '{"cards":2,"dificulty":"hard","rPunts":10}';
 									var options_data = JSON.parse(json);
-									console.log(options_data);
 									options_data.cards = cartes_d;
 									options_data.dificulty = dificultat;
 									options_data.rPunts = restaPunts;	
 									localStorage.setItem("config", JSON.stringify(options_data));
-									console.log(this);
 									this.scene.restart();
 								}
 								this.firstClick = null;
