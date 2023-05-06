@@ -162,6 +162,7 @@ class GameScene extends Phaser.Scene {
 									arrayScores.sort((a, b) => b.punts - a.punts);
 									console.log(arrayScores);
 									localStorage.scores = JSON.stringify(arrayScores);
+									alert(this.user + " has fet " +this.totalPunts+" punts");
 									loadpage("../");
 								}
 							}
